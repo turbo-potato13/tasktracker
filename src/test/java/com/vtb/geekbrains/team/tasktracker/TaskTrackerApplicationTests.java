@@ -1,10 +1,10 @@
-package com.vtb.geekbrainsteam.tasktracker;
+package com.vtb.geekbrains.team.tasktracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TasktrackerApplicationTests {
+class TaskTrackerApplicationTests {
 
 	@Test
 	void contextLoads() {
