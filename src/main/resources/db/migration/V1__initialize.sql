@@ -4,9 +4,11 @@ INSERT INTO document (name, content, type) VALUES
 ('Сar License', 'number', 'DRIVERS_LICENSE'),
 ('International Passport', 'serial number', 'PASSPORT');
 
+
 CREATE TABLE products (
     id BIGSERIAL PRIMARY KEY,
     title TEXT,
     created_at TIMESTAMP DEFAULT current_timestamp,
     updated_at TIMESTAMP DEFAULT current_timestamp
 )
+
