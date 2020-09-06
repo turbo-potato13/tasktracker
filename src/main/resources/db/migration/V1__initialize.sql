@@ -5,7 +5,7 @@ INSERT INTO document (name, content, type) VALUES
 ('International Passport', 'serial number', 'PASSPORT');
 
 
-CREATE TABLE products (
+CREATE TABLE projects (
     id BIGSERIAL PRIMARY KEY,
     title TEXT,
     created_at TIMESTAMP DEFAULT current_timestamp,
