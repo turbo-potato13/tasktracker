@@ -1,14 +1,17 @@
-CREATE TABLE document (id bigserial PRIMARY KEY, name VARCHAR(255), content VARCHAR(5000), type VARCHAR(255), created_at TIMESTAMP DEFAULT current_timestamp, updated_at TIMESTAMP DEFAULT current_timestamp);
-INSERT INTO document (name, content, type) VALUES
-('Russian Passport', 'serial number', 'PASSPORT'),
-('Сar License', 'number', 'DRIVERS_LICENSE'),
-('International Passport', 'serial number', 'PASSPORT');
-
-
-CREATE TABLE products (
-    id BIGSERIAL PRIMARY KEY,
-    title TEXT,
+CREATE TABLE task(
+    id bigserial PRIMARY KEY,
+    name VARCHAR(255),
+    description VARCHAR(5000),
+    constraint fk_user_id foreign key (user_id) references users (id),
+    status VARCHAR(255),
+    priority VARCHAR(255),
     created_at TIMESTAMP DEFAULT current_timestamp,
-    updated_at TIMESTAMP DEFAULT current_timestamp
-)
+    periodOfExecution TIMESTAMP,
+    comment VARCHAR(5000)
+    );
+INSERT INTO task (name, description, status, priority, comment) VALUES
+('Task', 'description1', 'BACKLOG', 'LOW', 'Comment'),
+('Task', 'description1', 'BACKLOG', 'LOW', 'Comment');
+
+
 
