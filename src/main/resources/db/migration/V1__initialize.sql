@@ -14,4 +14,10 @@ INSERT INTO task (name, description, status, priority, comment) VALUES
 ('Task', 'description1', 'BACKLOG', 'LOW', 'Comment');
 
 
+CREATE TABLE projects (
+    id BIGSERIAL PRIMARY KEY,
+    title TEXT,
+    created_at TIMESTAMP DEFAULT current_timestamp,
+    updated_at TIMESTAMP DEFAULT current_timestamp
+)
 
