@@ -1,7 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
 import com.vtb.geekbrains.team.tasktracker.entity.Project;
-import com.vtb.geekbrains.team.tasktracker.exceptions.RNF;
+import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
 import com.vtb.geekbrains.team.tasktracker.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +38,7 @@ public class ProjectController {
     @PutMapping(consumes = "application/json", produces = "application/json")
     public Project updateProject(Project project) {
         if (!projectService.existById(project.getId())) {
-            throw new RNF("Project with id " + project.getId() + " not found");
+            throw new ResourceNotFoundException("Project with id " + project.getId() + " not found");
         }
         return projectService.saveOrUpdate(project);
     }

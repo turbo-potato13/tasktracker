@@ -30,6 +30,10 @@ public class Task {
 //    @Cascade(org.hibernate.annotations.CascadeType.ALL)
 //    private List<User> performers;
 
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
