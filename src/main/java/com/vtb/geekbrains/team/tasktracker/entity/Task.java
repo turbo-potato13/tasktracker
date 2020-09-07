@@ -2,12 +2,10 @@ package com.vtb.geekbrains.team.tasktracker.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Entity
@@ -24,13 +22,13 @@ public class Task {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User owner;
 
-    @OneToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<User> performers;
+//    @OneToMany
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    private List<User> performers;
 
     @Enumerated(EnumType.STRING)
     private Status status;

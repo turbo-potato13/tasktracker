@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /store
+    context-path: /task
   port: 8190
 spring:
   datasource:

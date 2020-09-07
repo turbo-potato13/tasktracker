@@ -6,13 +6,38 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
 
-    public List<Task> findAll(){
+    public List<Task> findAll() {
         return taskRepository.findAll();
+    }
+
+    public Optional<Task> findById(Long id) {
+        return taskRepository.findById(id);
+    }
+
+    public Task saveOrUpdate(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public boolean existsById(Long id) {
+        return taskRepository.existsById(id);
+    }
+
+    public void deleteAll() {
+        taskRepository.deleteAll();
+    }
+
+    public void deleteById(Long id) {
+        taskRepository.deleteById(id);
+    }
+
+    public void archiving(Long id) {
+        //taskRepository
     }
 }
