@@ -1,15 +1,17 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -18,6 +20,12 @@ public class User {
 
     private String name;
 
-    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    List<Project> myProjects;
+    @JsonIgnore
+    @OneToMany(mappedBy = "manager")
+    List<Project> managedProjects = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "members")
+    private List<Project> projects = new ArrayList<>();
+
 }

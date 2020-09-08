@@ -20,12 +20,12 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
-    @GetMapping(consumes = "application/json", produces = "application/json")
+    @GetMapping(produces = "application/json")
     public List<Project> getAllProjects() {
         return projectService.findAll();
     }
 
-    @GetMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public Project getProjectById(@PathVariable Long id) {
         return projectService.findById(id);
     }
@@ -43,12 +43,12 @@ public class ProjectController {
         return projectService.saveOrUpdate(project);
     }
 
-    @DeleteMapping(consumes = "application/json", produces = "application/json")
+    @DeleteMapping(produces = "application/json")
     public void deleteAll() {
         projectService.deleteAll();
     }
 
-    @DeleteMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/{id}", produces = "application/json")
     public void deleteById(@PathVariable Long id) {
         projectService.deleteById(id);
     }

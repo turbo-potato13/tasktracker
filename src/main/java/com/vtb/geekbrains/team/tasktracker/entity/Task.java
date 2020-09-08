@@ -1,5 +1,6 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +31,8 @@ public class Task {
 //    @Cascade(org.hibernate.annotations.CascadeType.ALL)
 //    private List<User> performers;
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @JsonIgnore
+    @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
     private Project project;
 
