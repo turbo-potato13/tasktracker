@@ -1,6 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
@@ -32,6 +33,11 @@ public class Task{
 //    @OneToMany
 //    @Cascade(org.hibernate.annotations.CascadeType.ALL)
 //    private List<User> performers;
+
+    @JsonIgnore
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @Enumerated(EnumType.STRING)
     private Status status;
