@@ -37,7 +37,4 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public void archiving(Long id) {
-        //taskRepository
-    }
 }
