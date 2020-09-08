@@ -5,6 +5,7 @@ import com.vtb.geekbrains.team.tasktracker.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
+
     public Task getTaskById(@PathVariable Long id) {
         return taskService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
     }
