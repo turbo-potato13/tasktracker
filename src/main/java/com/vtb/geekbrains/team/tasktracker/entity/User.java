@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
@@ -44,5 +46,14 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "manager")
+    List<Project> managedProjects = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "members")
+    private List<Project> projects = new ArrayList<>();
 
 }

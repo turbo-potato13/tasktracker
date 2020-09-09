@@ -1,13 +1,11 @@
-server:
-  servlet:
-    context-path: /task
-  port: 8190
 spring:
+  #  flyway:
+#    enabled: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=tasktracker42
+    url: jdbc:postgresql://localhost:5432/geek
     username: postgres
-    password: postgres1
+    password: admin
   jpa:
     show-sql: true
     properties:
