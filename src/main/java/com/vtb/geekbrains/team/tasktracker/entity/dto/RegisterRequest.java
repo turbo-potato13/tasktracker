@@ -1,6 +1,5 @@
 package com.vtb.geekbrains.team.tasktracker.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,7 +14,6 @@ public class RegisterRequest {
     @Email
     private String email;
 
-    @JsonIgnore
     @ToString.Exclude
     private String password;
 }

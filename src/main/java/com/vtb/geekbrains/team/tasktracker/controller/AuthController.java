@@ -1,13 +1,15 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
 import com.vtb.geekbrains.team.tasktracker.config.jwt.JwtTokenUtil;
+import com.vtb.geekbrains.team.tasktracker.entity.User;
 import com.vtb.geekbrains.team.tasktracker.entity.dto.JwtRequest;
 import com.vtb.geekbrains.team.tasktracker.entity.dto.JwtResponse;
 import com.vtb.geekbrains.team.tasktracker.entity.dto.RegisterRequest;
+import com.vtb.geekbrains.team.tasktracker.errors.ApiError;
 import com.vtb.geekbrains.team.tasktracker.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @AllArgsConstructor
-@NoArgsConstructor
 public class AuthController {
 
 
@@ -28,13 +29,6 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(UserService userService,
-                          JwtTokenUtil jwtTokenUtil,
-                          AuthenticationManager authenticationManager) {
-        this.userService = userService;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.authenticationManager = authenticationManager;
-    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
@@ -46,11 +40,17 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        User u  =  new User();
-        UserDetails userDetails = userService.loadUserByUsername(registerRequest.getName);
-
-        String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        User u = new User();
+        u.setName(registerRequest.getName());
+        u.setEmail(registerRequest.getEmail());
+        u.setPassword(registerRequest.getPassword());
+        try {
+            userService.registerUser(u);
+        }catch (Exception e){
+            ApiError error = new ApiError(HttpStatus.BAD_REQUEST,e);
+            return ResponseEntity.badRequest().body(error);
+        }
+        return ResponseEntity.ok("User succesfully registered");
     }
 
 

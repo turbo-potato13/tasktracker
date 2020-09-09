@@ -2,27 +2,32 @@ package com.vtb.geekbrains.team.tasktracker.service;
 
 import com.vtb.geekbrains.team.tasktracker.entity.User;
 import com.vtb.geekbrains.team.tasktracker.repository.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 @Service
-public class UserService implements UserDetailsService {
+@AllArgsConstructor
+public class UserService {
     private final UserRepository repository;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    private final PasswordEncoder passwordEncoder;
 
+
+    public User findByEmail(String email) {
+        return repository.findByName()
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findByName(username).orElseThrow(() -> new RuntimeException("User not found: " + username));
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Arrays.asList(authority));
+
+    public void registerUser(User user) {
+        repository.findByName(user.getName()).ifPresentOrElse((u) ->
+                {
+                    throw new RuntimeException("User with this email " + u.getEmail() + " already exist");
+                },
+                () -> {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    user.setRole(User.Role.USER);
+                    repository.save(user);
+                });
     }
 }
