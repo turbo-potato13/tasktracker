@@ -3,6 +3,8 @@ package com.vtb.geekbrains.team.tasktracker.config.jwt;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@AllArgsConstructor
+
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private final UserDetailsService userDetailsService;
-    private final JwtTokenUtil jwtTokenUtil;
+    @Qualifier("userService")
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

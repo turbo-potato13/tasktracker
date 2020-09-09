@@ -17,7 +17,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@ManyToOne
+    @ManyToOne
     private String name;
 
     private String description;

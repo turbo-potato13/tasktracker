@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -32,15 +33,16 @@ public class User {
     @ToString.Exclude
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public enum Role {USER, ADMIN, USER_MANAGER}
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
 }

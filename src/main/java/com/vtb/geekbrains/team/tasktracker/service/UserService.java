@@ -1,21 +1,32 @@
 package com.vtb.geekbrains.team.tasktracker.service;
 
+import com.vtb.geekbrains.team.tasktracker.entity.Role;
 import com.vtb.geekbrains.team.tasktracker.entity.User;
 import com.vtb.geekbrains.team.tasktracker.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
-@AllArgsConstructor
-public class UserService {
-    private final UserRepository repository;
+public class UserService implements UserDetailsService {
+    @Autowired
+    private UserRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    private final PasswordEncoder passwordEncoder;
 
-
-    public User findByEmail(String email) {
-        return repository.findByName()
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
 
@@ -26,8 +37,21 @@ public class UserService {
                 },
                 () -> {
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
-                    user.setRole(User.Role.USER);
+                    Role role = new Role();
+                    role.setName("ROLE_USER");
+                    user.setRoles(Collections.singletonList(role));
                     repository.save(user);
                 });
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = findByEmail(s).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", s)));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 }

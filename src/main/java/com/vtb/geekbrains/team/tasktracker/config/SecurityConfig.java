@@ -4,6 +4,7 @@ import com.vtb.geekbrains.team.tasktracker.config.jwt.JwtRequestFilter;
 import com.vtb.geekbrains.team.tasktracker.errors.CustomAccessDeniedHandler;
 import com.vtb.geekbrains.team.tasktracker.errors.CustomAuthenticationEntryPoint;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,9 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
     CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
 
