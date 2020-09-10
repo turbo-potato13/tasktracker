@@ -15,6 +15,10 @@
             .when('/task', {
                 templateUrl: 'task/task.html',
                 controller: 'taskController'
+            })
+            .when('/projects', {
+                templateUrl: 'projects/projects.html',
+                controller: 'projectsController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {
