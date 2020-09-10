@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /tasktracker
-  port: 8191
+  port: 8190
 spring:
   datasource:
     driver-class-name: org.h2.Driver
