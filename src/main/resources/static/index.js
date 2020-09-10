@@ -15,6 +15,10 @@
             .when('/task', {
                 templateUrl: 'task/task.html',
                 controller: 'taskController'
+            })
+            .when('/comment/{id}',{
+                templateUrl: 'task/comment.html',
+                controller: 'taskController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {
