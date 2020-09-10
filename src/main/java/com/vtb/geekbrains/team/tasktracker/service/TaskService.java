@@ -1,7 +1,9 @@
 package com.vtb.geekbrains.team.tasktracker.service;
 
+import com.vtb.geekbrains.team.tasktracker.dto.CreateCommentDto;
 import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
 import com.vtb.geekbrains.team.tasktracker.dto.TaskDTO;
+import com.vtb.geekbrains.team.tasktracker.entity.Comment;
 import com.vtb.geekbrains.team.tasktracker.mapper.TaskMapper;
 import com.vtb.geekbrains.team.tasktracker.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,4 +47,10 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    public Comment addCommentToTask(CreateCommentDto comment){
+        Comment commentEntity = new Comment();
+        commentEntity.setContent(comment.getContent());
+        commentEntity.setTask(taskRepository.findById(comment.getTask()).get());
+        return commentEntity;
+    }
 }
