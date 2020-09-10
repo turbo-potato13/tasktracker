@@ -17,7 +17,7 @@
                 controller: 'taskController'
             })
             .when('/projects', {
-                templateUrl: 'projects/projects.html',
+                templateUrl: 'project/project.html',
                 controller: 'projectsController'
             });
 
