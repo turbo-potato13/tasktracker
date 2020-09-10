@@ -1,7 +1,6 @@
 package com.vtb.geekbrains.team.tasktracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vtb.geekbrains.team.tasktracker.controller.TaskController;
 import com.vtb.geekbrains.team.tasktracker.entity.Priority;
 import com.vtb.geekbrains.team.tasktracker.entity.Status;
 import com.vtb.geekbrains.team.tasktracker.entity.Task;
@@ -26,13 +25,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TaskControllerTest {
-    private final Task task = new Task(1L,
-            "Task1",
-            "Desc",
-            Status.READY,
-            Priority.LOW,
+    private final Task task = new Task(1L, "Task1", "Desc",
+            null, Status.READY, Priority.LOW,
             LocalDateTime.now(),
-            LocalDateTime.of(2020, 12, 14, 23, 43));
+            LocalDateTime.of(2020, 12, 14, 23, 43),
+            null);
+//    private final Task task = new Task(1L,
+//            "Task1",
+//            "Desc",
+//            Status.READY,
+//            Priority.LOW,
+//            LocalDateTime.now(),
+//            LocalDateTime.of(2020, 12, 14, 23, 43));
 
     @Autowired
     private MockMvc mockMvc;

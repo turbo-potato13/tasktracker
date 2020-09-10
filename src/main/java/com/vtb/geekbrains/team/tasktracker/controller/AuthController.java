@@ -2,20 +2,17 @@ package com.vtb.geekbrains.team.tasktracker.controller;
 
 import com.vtb.geekbrains.team.tasktracker.config.jwt.JwtTokenUtil;
 import com.vtb.geekbrains.team.tasktracker.entity.User;
-import com.vtb.geekbrains.team.tasktracker.entity.dto.JwtRequest;
-import com.vtb.geekbrains.team.tasktracker.entity.dto.JwtResponse;
+import com.vtb.geekbrains.team.tasktracker.entity.dto.SignInRequest;
+import com.vtb.geekbrains.team.tasktracker.entity.dto.SignInResponse;
 import com.vtb.geekbrains.team.tasktracker.entity.dto.RegisterRequest;
 import com.vtb.geekbrains.team.tasktracker.errors.ApiError;
-import com.vtb.geekbrains.team.tasktracker.service.CustomUserDetailsService;
 import com.vtb.geekbrains.team.tasktracker.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +30,11 @@ public class AuthController {
 
 
     @PostMapping("/signin")
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
+    public ResponseEntity<?> createAuthToken(@RequestBody SignInRequest authRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        UserDetails userDetails = userService.loadUserByUsername(authRequest.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new SignInResponse(token));
     }
 
     @PostMapping("/signup")

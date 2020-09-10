@@ -41,12 +41,11 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "manager")

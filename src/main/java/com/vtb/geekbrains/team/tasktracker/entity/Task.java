@@ -21,7 +21,7 @@ public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+
     private String name;
 
     private String description;
@@ -50,7 +50,7 @@ public class Task{
 
     private LocalDateTime periodOfExecution;
 
-//    @OneToMany(mappedBy = "comment")
-//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-//    private List<Comment> comment;
+    @OneToMany(mappedBy = "task")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Comment> comment;
 }

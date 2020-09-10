@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -21,6 +22,9 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -37,14 +41,14 @@ public class UserService implements UserDetailsService {
                 },
                 () -> {
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
-                    Role role = new Role();
-                    role.setName("ROLE_USER");
+                    Role role = roleService.findById(1L).orElseThrow(()->new RuntimeException());
                     user.setRoles(Collections.singletonList(role));
                     repository.save(user);
                 });
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = findByEmail(s).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", s)));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
