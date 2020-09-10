@@ -1,21 +1,24 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "subscriptions")
 @Data
-@Table(name = "events")
-public class Event {
+public class Subscription {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Enumerated(value = EnumType.STRING)
-    private EventType type;
+    private EventType eventType;
 
     @ManyToOne
     @JoinColumn(name = "task_id")
@@ -25,6 +28,5 @@ public class Event {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+
 }
