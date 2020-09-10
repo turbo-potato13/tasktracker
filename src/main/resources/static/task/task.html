@@ -21,7 +21,6 @@
             <td>Приоритет</td>
             <td>Время создания</td>
             <td>Срок исполнения</td>
-<!--            <td>Комментарий</td>-->
         </tr>
         <tbody>
         <tr ng-repeat="t in TaskList">
@@ -31,7 +30,13 @@
             <td>{{t.priority}}</td>
             <td>{{t.createdAt}}</td>
             <td>{{t.periodOfExecution}}</td>
-<!--            <td>{{t.comment}}</td>-->
+            <td>
+                <form novalidate ng-submit="submitOpenPageNewComment(t.id)">
+                    <div>
+                        <button class="btn btn-success" type="submit" >Добавить комментарий</button>
+                    </div>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -58,10 +63,10 @@
             <label for="newTaskPeriodOfExecution">Срок исполнения</label>
             <input class="form-control" type="date" ng-model="newTask.periodOfExecution" id="newTaskPeriodOfExecution">
         </div>
-<!--        <div class="form-group col-md-6">-->
-<!--            <label for="newTaskComment">Комментарий</label>-->
-<!--            <input class="form-control" type="text" ng-model="newTask.comment" id="newTaskComment">-->
-<!--        </div>-->
+        <!--        <div class="form-group col-md-6">-->
+        <!--            <label for="newTaskComment">Комментарий</label>-->
+        <!--            <input class="form-control" type="text" ng-model="newTask.comment" id="newTaskComment">-->
+        <!--        </div>-->
 
         <div>
             <button class="btn btn-success" type="submit">Сохранить</button>

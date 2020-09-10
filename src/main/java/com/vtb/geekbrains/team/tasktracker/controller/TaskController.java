@@ -1,6 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
-import com.vtb.geekbrains.team.tasktracker.entity.Task;
+import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
+import com.vtb.geekbrains.team.tasktracker.dto.TaskDTO;
 import com.vtb.geekbrains.team.tasktracker.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -16,30 +17,24 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public List<Task> getAllDocuments() {
+    public List<TaskDTO> getAllDocuments() {
         return taskService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
+    public TaskDTO getTaskById(@PathVariable Long id) {
         return taskService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Task createNewTask(@RequestBody Task task) {
-        if (task.getId() != null) {
-            task.setId(null);
-        }
-        return taskService.saveOrUpdate(task);
+    public TaskDTO createNewTask(@RequestBody CreateTaskDTO task) {
+        return taskService.create(task);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    public Task modifyTask(@RequestBody Task task) {
-        if (!taskService.existsById(task.getId())) {
-            throw new ResourceNotFoundException("Task with id: " + task.getId() + " doesn't exists (for modification)");
-        }
-        return taskService.saveOrUpdate(task);
+    public TaskDTO modifyTask(@RequestBody CreateTaskDTO task) {
+        return taskService.create(task);
     }
 
     @DeleteMapping

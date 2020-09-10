@@ -1,10 +1,9 @@
 package com.vtb.geekbrains.team.tasktracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vtb.geekbrains.team.tasktracker.controller.TaskController;
+import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
 import com.vtb.geekbrains.team.tasktracker.entity.Priority;
 import com.vtb.geekbrains.team.tasktracker.entity.Status;
-import com.vtb.geekbrains.team.tasktracker.entity.Task;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -26,13 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TaskControllerTest {
-    private final Task task = new Task(1L,
-            "Task1",
-            "Desc",
-            Status.READY,
+
+    private final CreateTaskDTO taskDTO = new CreateTaskDTO("task",
+            "desc",
+            Status.BACKLOG,
             Priority.LOW,
-            LocalDateTime.now(),
-            LocalDateTime.of(2020, 12, 14, 23, 43));
+            LocalDateTime.now());
 
     @Autowired
     private MockMvc mockMvc;
@@ -65,7 +63,7 @@ class TaskControllerTest {
     void tryCreateNewTask() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(task)))
+                .content(objectMapper.writeValueAsString(taskDTO)))
                 .andExpect(status().isCreated());
     }
 
@@ -74,7 +72,7 @@ class TaskControllerTest {
     void tryToModifyTask() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(task)))
+                .content(objectMapper.writeValueAsString(taskDTO)))
                 .andExpect(status().isOk());
     }
 
