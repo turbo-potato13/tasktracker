@@ -29,6 +29,9 @@
             <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/task')}">
                 <a class="nav-link " href="#!/task">Задачи</a>
             </li>
+            <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/project')}">
+                <a class="nav-link " href="#!/project">Проекты</a>
+            </li>
         </ul>
 
         <form ng-if="!isUserLoggedIn()" ng-submit="tryToAuth(data)" class="form-inline my-2 my-lg-0">
