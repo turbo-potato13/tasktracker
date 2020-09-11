@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +55,7 @@ public class JwtTokenUtil {
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime()+ 60*6 * 60 * 1000); // todo
+        Date expiredDate = Date.from(LocalDate.now().plusDays(14).atStartOfDay(ZoneId.systemDefault()).toInstant());// todo
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
