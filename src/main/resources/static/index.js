@@ -9,12 +9,20 @@
     function config($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'about/about.html',
-                controller: 'aboutController'
+                templateUrl: 'home/home.html',
+                controller: 'homeController'
             })
             .when('/task', {
                 templateUrl: 'task/task.html',
                 controller: 'taskController'
+            })
+            .when('/projects', {
+                templateUrl: 'project/project.html',
+                controller: 'projectsController'
+            })
+            .when('/project-members/:id', {
+                templateUrl: 'project-members/project-members.html',
+                controller: 'projectsMembersController'
             })
             .when('/comment/:taskId',{
                 templateUrl: 'task/comment.html',

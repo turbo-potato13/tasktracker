@@ -1,6 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
 import com.vtb.geekbrains.team.tasktracker.entity.Priority;
 import com.vtb.geekbrains.team.tasktracker.entity.Status;
@@ -25,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TaskControllerTest {
-
     private final CreateTaskDTO taskDTO = new CreateTaskDTO("task",
             "desc",
             Status.BACKLOG,
