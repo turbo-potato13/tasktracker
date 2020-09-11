@@ -15,9 +15,14 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @GetMapping()
+    @GetMapping
     public List<CommentDTO> getAllComments() {
         return commentService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public List<CommentDTO> getAllComments(@PathVariable Long id) {
+        return commentService.findAllById(id);
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

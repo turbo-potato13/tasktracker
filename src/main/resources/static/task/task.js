@@ -9,25 +9,11 @@ angular.module('app').controller('taskController', function ($scope, $http,$loca
     };
 
     $scope.submitCreateNewTask = function () {
-        $http.put(contextPath + '/api/v1/task', $scope.newTask)
+        $http.post(contextPath + '/api/v1/task', $scope.newTask)
             .then(function (response) {
                 $scope.TaskList.push(response.data);
             });
     };
-
-    // $scope.submitOpenPageNewComment = function (id){
-    //     $http.get(contextPath + '/api/v1/comment/' + id, $scope.newComment)
-    //         .then(function (response){
-    //             $scope.CommentList = response.data;
-    //         })
-    // }
-
-    // $scope.submitCreateNewComment = function () {
-    //     $http.post(contextPath + '/api/v1/comment', $scope.newTask)
-    //         .then(function (response) {
-    //             $scope.TaskList.push(response.data);
-    //         });
-    // };
 
     fillTable();
     $scope.isUserLoggedIn = function () {

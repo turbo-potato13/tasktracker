@@ -24,9 +24,9 @@
                 templateUrl: 'project-members/project-members.html',
                 controller: 'projectsMembersController'
             })
-            .when('/comment/{id}',{
+            .when('/comment/:taskId',{
                 templateUrl: 'task/comment.html',
-                controller: 'taskController'
+                controller: 'commentController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {

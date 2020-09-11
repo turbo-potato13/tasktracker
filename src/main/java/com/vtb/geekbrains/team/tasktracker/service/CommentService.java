@@ -24,6 +24,12 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDTO> findAllById(Long id) {
+        return commentRepository.findAll().stream()
+                .map(comment -> commentMapper.map(comment, id))
+                .collect(Collectors.toList());
+    }
+
     public CommentDTO create(CreateCommentDto comment) {
         Comment comment1 = taskService.addCommentToTask(comment);
         commentRepository.save(comment1);
