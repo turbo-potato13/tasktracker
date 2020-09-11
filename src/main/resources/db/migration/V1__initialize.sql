@@ -27,8 +27,7 @@ CREATE TABLE task(
                      created_at TIMESTAMP DEFAULT current_timestamp,
                      period_of_execution TIMESTAMP,
                      comment VARCHAR(5000),
-                     project_id BIGINT,
-                     constraint fk_project_id foreign key (project_id) references projects(id)
+                     project_id BIGINT references projects(id)
 );
 
 CREATE TABLE projects_users (
@@ -74,8 +73,7 @@ CREATE TABLE comment(
     priority VARCHAR(255),
     created_at TIMESTAMP DEFAULT current_timestamp,
     period_of_execution TIMESTAMP,
-    project_id BIGINT,
-    constraint fk_project_id foreign key (project_id) references projects(id)
+    project_id BIGINT REFERENCES projects(id)
     );
 INSERT INTO task (name, description, status, priority) VALUES
 ('Task', 'description1', 'BACKLOG', 'LOW'),

@@ -1,4 +1,4 @@
-angular.module('app').controller('taskController', function ($scope, $http) {
+angular.module('app').controller('taskController', function ($scope, $http,$localStorage) {
     const contextPath = 'http://localhost:8190/tasktracker';
 
     fillTable = function () {
@@ -30,4 +30,11 @@ angular.module('app').controller('taskController', function ($scope, $http) {
     // };
 
     fillTable();
+    $scope.isUserLoggedIn = function () {
+        if ($localStorage.currentUser) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 });

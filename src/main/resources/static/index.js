@@ -9,8 +9,8 @@
     function config($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'about/about.html',
-                controller: 'aboutController'
+                templateUrl: 'home/home.html',
+                controller: 'homeController'
             })
             .when('/task', {
                 templateUrl: 'task/task.html',
