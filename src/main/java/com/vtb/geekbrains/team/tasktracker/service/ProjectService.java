@@ -61,8 +61,12 @@ public class ProjectService {
 
     public User addMember(Long id, String login) {
         User user = userRepository.findByName(login)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found. Login: " + login));
-        Project project = projectRepository.findById(id).get();
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User with email %s not found", login)));
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Project with id %d not found", id)));
+        if (project.getMembers().contains(user)) {
+            throw new TaskTrackerException("User is already in member list");
+        }
         project.getMembers().add(user);
         projectRepository.save(project);
         return user;

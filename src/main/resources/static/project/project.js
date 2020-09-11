@@ -4,12 +4,17 @@ angular.module('app').controller('projectsController', function ($scope, $http) 
     $scope.projects = [];
     $scope.projectTitle = "";
 
-    fillTable = function () {
-        $http.get(contextPath + '/api/v1/projects')
-            .then(function (response) {
-                $scope.projectList = response.data;
-            });
-    };
+    function _refreshProjectsData() {
+        $http({
+            method: 'GET',
+            url: contextPath + '/api/v1/projects'
+        }).then(function(res) {
+                $scope.projects = res.data;
+            }, function(res) {
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
 
     $scope.deleteProject = function(project) {
         $http({
@@ -23,27 +28,16 @@ angular.module('app').controller('projectsController', function ($scope, $http) 
             method: 'POST',
             url: contextPath + '/api/v1/projects',
             params: {
-                title: $scope.newProject.title
+                title: $scope.projectTitle
             }
         }).then(function (response) {
-            $scope.projectList.push(response.data);
+            _clearFormData();
+            $scope.projects.push(response.data);
         });
     };
 
-    function _refreshEmployeeData() {
-        $http({
-            method: 'GET',
-            url: contextPath + '/api/v1/projects'
-        }).then(function(res) {
-                $scope.projects = res.data;
-            }, function(res) {
-                console.log("Error: " + res.status + " : " + res.data);
-            }
-        );
-    }
-
     function _success(res) {
-        _refreshProjectData();
+        _refreshProjectsData();
         _clearFormData();
     }
 
@@ -59,5 +53,5 @@ angular.module('app').controller('projectsController', function ($scope, $http) 
         $scope.projectTitle = "";
     };
 
-    _refreshEmployeeData();
+    _refreshProjectsData();
 });
