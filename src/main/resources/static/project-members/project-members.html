@@ -1,0 +1,30 @@
+<div>
+    <h1>Проект {{project.title}}</h1>
+
+    <h3>Список пользователей</h3>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Логин</td>
+            <td>Удалить из проекта</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="member in members">
+            <td>{{member.name}}</td>
+            <td>
+                <a ng-click="submitDeleteMember(member)"><button type="button" class="btn btn-primary">Удалить</button></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Добавить пользователя</h3>
+    <form novalidate ng-submit="submitAddMember()">
+        <div class="form-group col-md-6">
+            <label>Логин</label>
+            <input class="form-control" type="text" ng-model="login">
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit">Добавить</button>
+        </div>
+    </form>
+</div>
