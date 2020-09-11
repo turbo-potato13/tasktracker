@@ -4,10 +4,10 @@ import com.vtb.geekbrains.team.tasktracker.dto.CreateCommentDto;
 import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
 import com.vtb.geekbrains.team.tasktracker.dto.TaskDTO;
 import com.vtb.geekbrains.team.tasktracker.entity.Comment;
+import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
 import com.vtb.geekbrains.team.tasktracker.mapper.TaskMapper;
 import com.vtb.geekbrains.team.tasktracker.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

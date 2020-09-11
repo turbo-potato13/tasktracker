@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,8 @@ public class ProjectController {
     }
 
     @PostMapping(produces = "application/json")
-    public Project createNewProject(@RequestParam String title) {
-        return projectService.createNewProject(title);
+    public Project createNewProject(@RequestParam String title, Principal principal) {
+        return projectService.createNewProject(title, principal.getName());
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
@@ -45,14 +46,9 @@ public class ProjectController {
         return projectService.saveOrUpdate(project);
     }
 
-    @DeleteMapping(produces = "application/json")
-    public void deleteAll() {
-        projectService.deleteAll();
-    }
-
-    @DeleteMapping(path = "/{id}", produces = "application/json")
-    public void deleteById(@PathVariable Long id) {
-        projectService.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id, Principal principal) {
+        projectService.deleteById(id, principal.getName());
     }
 
     @PutMapping("/{id}/{login}")
