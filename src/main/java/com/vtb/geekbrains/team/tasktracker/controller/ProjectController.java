@@ -1,6 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
 import com.vtb.geekbrains.team.tasktracker.entity.Project;
+import com.vtb.geekbrains.team.tasktracker.entity.User;
 import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
 import com.vtb.geekbrains.team.tasktracker.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,9 +32,9 @@ public class ProjectController {
         return projectService.findById(id);
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public Project createNewProject(Project project) {
-        return projectService.saveOrUpdate(project);
+    @PostMapping(produces = "application/json")
+    public Project createNewProject(@RequestParam String title) {
+        return projectService.createNewProject(title);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
@@ -53,4 +55,13 @@ public class ProjectController {
         projectService.deleteById(id);
     }
 
+    @PutMapping("/{id}/{login}")
+    public User addMemberToProject(@PathVariable Long id, @PathVariable String login) {
+        return projectService.addMember(id, login);
+    }
+
+    @DeleteMapping("/{id}/{login}")
+    public void deleteMemberFromProject(@PathVariable Long id, @PathVariable String login) {
+        projectService.deleteMember(id, login);
+    }
 }

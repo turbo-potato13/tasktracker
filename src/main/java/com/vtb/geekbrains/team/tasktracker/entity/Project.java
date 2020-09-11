@@ -33,7 +33,7 @@ public class Project {
 
     private String title;
 
-    @ManyToOne(optional = false)
+    @ManyToOne//(optional = false)
     @JoinColumn(name = "manager_user_id")
     private User manager;
 

@@ -4,7 +4,6 @@ angular.module('app').controller('projectsController', function ($scope, $http) 
     fillTable = function () {
         $http.get(contextPath + '/api/v1/projects')
             .then(function (response) {
-                console.log(response.data)
                 $scope.projectList = response.data;
             });
     };

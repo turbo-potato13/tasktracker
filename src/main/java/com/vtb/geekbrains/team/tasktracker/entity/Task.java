@@ -32,7 +32,7 @@ public class Task {
 //    private List<User> performers;
 
     @JsonIgnore
-    @ManyToOne(optional = false)
+    @ManyToOne//(optional = false)
     @JoinColumn(name = "project_id")
     private Project project;
 

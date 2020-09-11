@@ -19,6 +19,10 @@
             .when('/projects', {
                 templateUrl: 'project/project.html',
                 controller: 'projectsController'
+            })
+            .when('/project-members/:id', {
+                templateUrl: 'project-members/project-members.html',
+                controller: 'projectsMembersController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {

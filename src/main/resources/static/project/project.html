@@ -6,13 +6,16 @@
         <tr>
             <td>Название</td>
             <td>Менеджер</td>
+            <td>Инфо</td>
         </tr>
         <tbody>
         <tr ng-repeat="p in projectList">
             <td>{{p.title}}</td>
             <td>{{p.manager.name}}</td>
-            <td><a>Задачи проекта</a></td>
-            <td><a>Участники проекта</a></td>
+            <td>
+                <a href="#!/project-tasks/{{p.id}}"><button type="button" class="btn btn-primary">Задачи</button></a>
+                <a href="#!/project-members/{{p.id}}"><button type="button" class="btn btn-primary">Участники</button></a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -21,7 +24,7 @@
     <form novalidate ng-submit="submitCreateNewProject()">
         <div class="form-group col-md-6">
             <label>Название</label>
-            <input class="form-control" type="text" ng-model="newProject.name">
+            <input class="form-control" type="text" ng-model="newProject.title">
         </div>
         <div>
             <button class="btn btn-success" type="submit">Создать</button>
