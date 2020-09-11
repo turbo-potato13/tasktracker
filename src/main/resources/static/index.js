@@ -16,9 +16,9 @@
                 templateUrl: 'task/task.html',
                 controller: 'taskController'
             })
-            .when('/comment/{id}',{
+            .when('/comment/:taskId',{
                 templateUrl: 'task/comment.html',
-                controller: 'taskController'
+                controller: 'commentController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {
