@@ -2,10 +2,10 @@ package com.vtb.geekbrains.team.tasktracker.service;
 
 import com.vtb.geekbrains.team.tasktracker.entity.Project;
 import com.vtb.geekbrains.team.tasktracker.entity.User;
+import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
 import com.vtb.geekbrains.team.tasktracker.repository.ProjectRepository;
 import com.vtb.geekbrains.team.tasktracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +48,8 @@ public class ProjectService {
     }
 
     public User addMember(Long id, String login) {
-        User user = userRepository.findByName(login);
+        User user = userRepository.findByName(login)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found. Login: " + login));
         Project project = projectRepository.findById(id).get();
         project.getMembers().add(user);
         projectRepository.save(project);
@@ -56,7 +57,8 @@ public class ProjectService {
     }
 
     public void deleteMember(Long id, String login) {
-        User user = userRepository.findByName(login);
+        User user = userRepository.findByName(login)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found. Login: " + login));
         Project project = projectRepository.findById(id).get();
         project.getMembers().remove(user);
         projectRepository.save(project);

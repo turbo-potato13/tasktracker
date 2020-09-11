@@ -23,6 +23,10 @@
             .when('/project-members/:id', {
                 templateUrl: 'project-members/project-members.html',
                 controller: 'projectsMembersController'
+            })
+            .when('/comment/{id}',{
+                templateUrl: 'task/comment.html',
+                controller: 'taskController'
             });
 
         // $httpProvider.interceptors.push(function($q, $location) {
