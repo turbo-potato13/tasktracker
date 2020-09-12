@@ -16,4 +16,16 @@ public class CommentMapper {
                 .createdAt(comment.getCreatedAt())
                 .build();
     }
+
+    public CommentDTO map(Comment comment, Long id) {
+        CommentDTO commentDTO = null;
+        if (comment.getTask().getId().equals(id)) {
+            commentDTO = CommentDTO.builder()
+                    .id(comment.getId())
+                    .content(comment.getContent())
+                    .createdAt(comment.getCreatedAt())
+                    .build();
+        }
+        return commentDTO;
+    }
 }
