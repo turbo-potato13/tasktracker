@@ -7,7 +7,4 @@ public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException() {
     }
 
-    public ResourceNotFoundException() {
-    }
-
 }
