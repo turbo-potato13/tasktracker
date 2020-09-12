@@ -33,11 +33,11 @@ public class Project {
 
     private String title;
 
-    @ManyToOne//(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "manager_user_id")
     private User manager;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "projects_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")

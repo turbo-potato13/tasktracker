@@ -26,12 +26,15 @@
             <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/')}">
                 <a class="nav-link " href="#!/">Главная</a>
             </li>
+            <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/projects')}">
+                <a class="nav-link " href="#!/projects">Проекты</a>
+            </li>
             <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/task')}">
                 <a class="nav-link " href="#!/task">Задачи</a>
             </li>
         </ul>
 
-        <form ng-if="!isUserLoggedIn()" ng-submit="tryToAuth(data)" class="form-inline my-2 my-lg-0">
+        <form ng-submit="tryToAuth(data)" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="email" ng-model="data.email" placeholder="Email">
             <input class="form-control mr-sm-2" type="password" ng-model="data.password" placeholder="пароль">
             <button class="btn btn-outline-success my-2 my-sm-0 shadow-sm  rounded" type="submit">Войти</button>
@@ -46,17 +49,13 @@
 </nav>
 <div class="container">
 
-    <h1>Планировщик задач</h1>
-    <a class="btn btn-outline-warning" href="#!/">Главная</a>
-    <a class="btn btn-outline-warning" href="#!/task">Задачи</a>
-
-    <!--    <a class="btn btn-outline-warning" href="#!/auth">Войти или выйти</a>-->
     <ng-view></ng-view>
 
     <script src="index.js"></script>
     <script src="about/about.js"></script>
     <script src="project/project.js"></script>
     <script src="project-members/project-members.js"></script>
+    <script src="project-tasks/project-tasks.js"></script>
     <script src="home/home.js"></script>
     <script src="task/task.js"></script>
 
