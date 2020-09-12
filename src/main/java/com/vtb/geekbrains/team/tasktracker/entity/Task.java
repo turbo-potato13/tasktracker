@@ -1,18 +1,21 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "task")
-@Data
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class Task {
 
@@ -20,28 +23,43 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     private String name;
 
+    @Setter
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User owner;
 
-    @OneToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<User> performers;
+//    @OneToMany
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    private List<User> performers;
 
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)//(optional = false)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @Setter
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Setter
     private LocalDateTime periodOfExecution;
 
-    private String comment;
+
+    @Setter
+    @OneToMany(mappedBy = "task",
+            fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private Set<Comment> comments = new HashSet<>();
 }

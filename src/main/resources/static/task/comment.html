@@ -1,0 +1,24 @@
+<div>
+    <h1>Комментарии:</h1>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Содержание:</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="c in CommentList">
+            <td>{{c.content}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Добавить комментарий</h3>
+    <form novalidate ng-submit="submitCreateNewComment()">
+        <div class="form-group col-md-6">
+            <label for="newCommentContent">Комментарий</label>
+            <input class="form-control" type="text" ng-model="newComment.content" id="newCommentContent">
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit">Добавить</button>
+        </div>
+    </form>
+</div>

@@ -6,7 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Priority {
-
     LOW("Низкий"), MEDIUM("Средний"), HIGH("Высокий");
     private final String rus;
 }

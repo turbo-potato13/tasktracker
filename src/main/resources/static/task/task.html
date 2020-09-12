@@ -1,0 +1,56 @@
+<div>
+    <h1>Задачи:</h1>
+
+    <h3>Список задач</h3>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Статус</td>
+            <td>Приоритет</td>
+            <td>Время создания</td>
+            <td>Срок исполнения</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="t in TaskList">
+            <td>{{t.name}}</td>
+            <td>{{t.description}}</td>
+            <td>{{t.status}}</td>
+            <td>{{t.priority}}</td>
+            <td>{{t.createdAt}}</td>
+            <td>{{t.periodOfExecution}}</td>
+            <td>
+            <td>
+                <a ng-href="#!/comment/{{t.id}}">Добавить комментарий</a></td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Добавить новую задачу</h3>
+    <form novalidate ng-submit="submitCreateNewTask()">
+        <div class="form-group col-md-6">
+            <label for="newTaskName">Название</label>
+            <input class="form-control" type="text" ng-model="newTask.name" id="newTaskName">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="newTaskDescription">Описание</label>
+            <input class="form-control" type="text" ng-model="newTask.description" id="newTaskDescription">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="newTaskStatus">Статус (BACKLOG/ACTIVE/READY)</label>
+            <input class="form-control" type="text" ng-model="newTask.status" id="newTaskStatus">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="newTaskPriority">Приоритет (LOW/MEDIUM/HIGH)</label>
+            <input class="form-control" type="text" ng-model="newTask.priority" id="newTaskPriority">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="newTaskPeriodOfExecution">Срок исполнения</label>
+            <input class="form-control" type="date" ng-model="newTask.periodOfExecution" id="newTaskPeriodOfExecution">
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>
