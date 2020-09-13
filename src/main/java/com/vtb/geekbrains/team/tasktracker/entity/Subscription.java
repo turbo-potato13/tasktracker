@@ -1,5 +1,6 @@
 package com.vtb.geekbrains.team.tasktracker.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "subscriptions")
 @Data
+@Builder
 public class Subscription {
 
     @Id
