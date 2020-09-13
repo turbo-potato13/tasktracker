@@ -1,6 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
 import com.vtb.geekbrains.team.tasktracker.entity.*;
+import com.vtb.geekbrains.team.tasktracker.entity.Project;
 import com.vtb.geekbrains.team.tasktracker.entity.dto.SubscriptionRequest;
 import com.vtb.geekbrains.team.tasktracker.service.ProjectService;
 import com.vtb.geekbrains.team.tasktracker.service.SubscriptionService;
@@ -29,9 +30,9 @@ public class SubscriptionController {
         User user = userService.findByEmail(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("No such user with email + " + principal.getName()));
 
-        Task task = taskService.findById(subscriptionRequest.getTaskId())
-                .orElseThrow(() -> new UsernameNotFoundException("No such task with id + " + subscriptionRequest.getTaskId()));
-        ;
+        Task task = taskService.findEntityById(subscriptionRequest.getTaskId())
+                .orElseThrow(() -> new UsernameNotFoundException("No such task with id + " + subscriptionRequest.getId()));
+
 
         Project project = projectService.findById(subscriptionRequest.getProjectId());
 
@@ -49,9 +50,9 @@ public class SubscriptionController {
         User user = userService.findByEmail(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("No such user with email + " + principal.getName()));
 
-        Task task = taskService.findById(subscriptionRequest.getTaskId())
+        Task task = taskService.findEntityById(subscriptionRequest.getTaskId())
                 .orElseThrow(() -> new UsernameNotFoundException("No such task with id + " + subscriptionRequest.getTaskId()));
-        ;
+
 
         Project project = projectService.findById(subscriptionRequest.getProjectId());
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngStorage'])
+        .module('app', ['ngRoute', 'ngStorage','toaster', 'ngAnimate'])
         .config(config)
         .run(run);
 
@@ -52,9 +52,9 @@
         // });
     }
 
-    // function run($rootScope, $http, $localStorage) {
-    //     if ($localStorage.currentUser) {
-    //         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    //     }
-    // }
+    function run($rootScope, $http, $localStorage) {
+        if ($localStorage.currentUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+        }
+    }
 })();
