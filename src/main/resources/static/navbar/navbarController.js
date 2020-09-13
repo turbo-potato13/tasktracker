@@ -1,9 +1,11 @@
 angular.module('app').controller('navbarController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8190/tasktracker';
+    vm = this;
+    vm.user={};
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
-    $scope.isUserLoggedIn = function () {
+    vm.isUserLoggedIn = function () {
         if ($localStorage.currentUser) {
             return true;
         } else {
@@ -11,22 +13,21 @@ angular.module('app').controller('navbarController', function ($scope, $http, $l
         }
     };
 
-    $scope.tryToAuth = function (data) {
+    vm.tryToAuth = function (data) {
         console.log(data)
         $http.post(contextPath + '/api/v1/signin', data)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.currentUser = {name: data.name, token: response.data.token};
+                    $localStorage.currentUser = {name: response.data.name, token: response.data.token};
 
                     data.email = null;
                     data.password = null;
-
+                    vm.user.name = response.data.name;
                     console.log($localStorage.currentUser);
                 }
             }, function errorCallback(response) {
                 window.alert(response.data.message);
-                $scope.clearUser();
             });
     };
 })

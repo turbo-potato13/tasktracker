@@ -25,6 +25,7 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -35,7 +36,7 @@ public class UserService implements UserDetailsService {
 
 
     public void registerUser(User user) {
-        repository.findByName(user.getName()).ifPresentOrElse((u) ->
+        repository.findByEmail(user.getEmail()).ifPresentOrElse((u) ->
                 {
                     throw new RuntimeException("User with this email " + u.getEmail() + " already exist");
                 },

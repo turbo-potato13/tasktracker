@@ -8,6 +8,7 @@ import com.vtb.geekbrains.team.tasktracker.entity.dto.RegisterRequest;
 import com.vtb.geekbrains.team.tasktracker.errors.ApiError;
 import com.vtb.geekbrains.team.tasktracker.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @AllArgsConstructor
+@Slf4j
 public class AuthController {
 
 
@@ -34,11 +36,12 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new SignInResponse(token));
+        String name  = userService.findByEmail(authRequest.getEmail()).get().getName();
+        return ResponseEntity.ok(new SignInResponse(name,token));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<Object> register(@RequestBody RegisterRequest registerRequest) {
         User u = new User();
         u.setName(registerRequest.getName());
         u.setEmail(registerRequest.getEmail());
@@ -46,10 +49,11 @@ public class AuthController {
         try {
             userService.registerUser(u);
         }catch (Exception e){
+            log.error(e.toString());
             ApiError error = new ApiError(HttpStatus.BAD_REQUEST,e);
             return ResponseEntity.badRequest().body(error);
         }
-        return ResponseEntity.ok("User succesfully registered");
+        return ResponseEntity.noContent().build();
     }
 
 

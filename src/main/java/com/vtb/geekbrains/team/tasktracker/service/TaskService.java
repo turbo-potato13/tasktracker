@@ -4,10 +4,11 @@ import com.vtb.geekbrains.team.tasktracker.dto.CreateCommentDto;
 import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
 import com.vtb.geekbrains.team.tasktracker.dto.TaskDTO;
 import com.vtb.geekbrains.team.tasktracker.entity.Comment;
+import com.vtb.geekbrains.team.tasktracker.entity.Task;
+import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
 import com.vtb.geekbrains.team.tasktracker.mapper.TaskMapper;
 import com.vtb.geekbrains.team.tasktracker.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public class TaskService {
     public Optional<TaskDTO> findById(Long id) {
         return taskRepository.findById(id)
                 .map(taskMapper::map);
+    }
+
+    public Optional<Task> findEntityById(Long id){
+        return taskRepository.findById(id);
     }
 
     public TaskDTO create(CreateTaskDTO task) {

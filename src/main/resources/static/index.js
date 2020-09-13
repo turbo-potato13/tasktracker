@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngStorage'])
+        .module('app', ['ngRoute', 'ngStorage','toaster', 'ngAnimate'])
         .config(config)
         .run(run);
 
@@ -23,6 +23,10 @@
             .when('/project-members/:id', {
                 templateUrl: 'project-members/project-members.html',
                 controller: 'projectsMembersController'
+            })
+            .when('/project-tasks/:id', {
+                templateUrl: 'task/task.html',
+                controller: 'projectsTasksController'
             })
             .when('/comment/:taskId',{
                 templateUrl: 'task/comment.html',
@@ -48,9 +52,9 @@
         // });
     }
 
-    // function run($rootScope, $http, $localStorage) {
-    //     if ($localStorage.currentUser) {
-    //         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    //     }
-    // }
+    function run($rootScope, $http, $localStorage) {
+        if ($localStorage.currentUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+        }
+    }
 })();
