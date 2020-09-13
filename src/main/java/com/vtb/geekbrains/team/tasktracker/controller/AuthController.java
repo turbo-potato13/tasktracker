@@ -8,6 +8,7 @@ import com.vtb.geekbrains.team.tasktracker.entity.dto.RegisterRequest;
 import com.vtb.geekbrains.team.tasktracker.errors.ApiError;
 import com.vtb.geekbrains.team.tasktracker.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @AllArgsConstructor
+@Slf4j
 public class AuthController {
 
 
@@ -46,6 +48,7 @@ public class AuthController {
         try {
             userService.registerUser(u);
         }catch (Exception e){
+            log.error(e.toString());
             ApiError error = new ApiError(HttpStatus.BAD_REQUEST,e);
             return ResponseEntity.badRequest().body(error);
         }

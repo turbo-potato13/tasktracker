@@ -1,5 +1,7 @@
 package com.vtb.geekbrains.team.tasktracker.controller;
 
+import com.vtb.geekbrains.team.tasktracker.dto.CreateTaskDTO;
+import com.vtb.geekbrains.team.tasktracker.dto.TaskDTO;
 import com.vtb.geekbrains.team.tasktracker.entity.Project;
 import com.vtb.geekbrains.team.tasktracker.entity.User;
 import com.vtb.geekbrains.team.tasktracker.exception.ResourceNotFoundException;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -33,8 +37,8 @@ public class ProjectController {
     }
 
     @PostMapping(produces = "application/json")
-    public Project createNewProject(@RequestParam String title) {
-        return projectService.createNewProject(title);
+    public Project createNewProject(@RequestParam String title, Principal principal) {
+        return projectService.createNewProject(title, principal.getName());
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
@@ -45,14 +49,9 @@ public class ProjectController {
         return projectService.saveOrUpdate(project);
     }
 
-    @DeleteMapping(produces = "application/json")
-    public void deleteAll() {
-        projectService.deleteAll();
-    }
-
-    @DeleteMapping(path = "/{id}", produces = "application/json")
-    public void deleteById(@PathVariable Long id) {
-        projectService.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id, Principal principal) {
+        projectService.deleteById(id, principal.getName());
     }
 
     @PutMapping("/{id}/{login}")
@@ -63,5 +62,10 @@ public class ProjectController {
     @DeleteMapping("/{id}/{login}")
     public void deleteMemberFromProject(@PathVariable Long id, @PathVariable String login) {
         projectService.deleteMember(id, login);
+    }
+
+    @PutMapping("/{id}/members")
+    public Project addTaskToProject(@PathVariable Long id, Principal principal, @RequestBody CreateTaskDTO task) {
+        return projectService.addTask(id, principal.getName(), task);
     }
 }
