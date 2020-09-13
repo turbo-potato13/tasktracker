@@ -36,11 +36,12 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new SignInResponse(token));
+        String name  = userService.findByEmail(authRequest.getEmail()).get().getName();
+        return ResponseEntity.ok(new SignInResponse(name,token));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<Object> register(@RequestBody RegisterRequest registerRequest) {
         User u = new User();
         u.setName(registerRequest.getName());
         u.setEmail(registerRequest.getEmail());
@@ -52,7 +53,7 @@ public class AuthController {
             ApiError error = new ApiError(HttpStatus.BAD_REQUEST,e);
             return ResponseEntity.badRequest().body(error);
         }
-        return ResponseEntity.ok("User succesfully registered");
+        return ResponseEntity.noContent().build();
     }
 
 
