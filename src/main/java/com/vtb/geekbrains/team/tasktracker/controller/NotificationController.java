@@ -25,9 +25,7 @@ public class NotificationController {
     @GetMapping
     public Set<Event> getNotifications(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userService.findByEmail(
-                userDetails.getUsername()
-        )
+        User user = userService.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("No such user with email + " + userDetails.getUsername()));
 
        return notificationService.findAllNotificationsByUser(user);
