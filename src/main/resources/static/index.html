@@ -37,14 +37,14 @@
             </li>
         </ul>
 
-        <form ng-submit="vm.tryToAuth(data)" class="form-inline my-2 my-lg-0">
+        <form  ng-if="!vm.isUserLoggedIn()" ng-submit="vm.tryToAuth(data)" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="email" ng-model="data.email" placeholder="Email">
             <input class="form-control mr-sm-2" type="password" ng-model="data.password" placeholder="пароль">
             <button class="btn btn-outline-success my-2 my-sm-0 shadow-sm  rounded" type="submit">Войти</button>
             <a class="btn btn-outline-secondary my-2 my-sm-0 shadow-sm  rounded" href="#!/" data-toggle="modal"  data-target="#registrationModal"
                type="button">Зарегистрироваться</a>
         </form>
-        <div class="modal fade" ng-controller="registrationController as rc" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div  ng-if="!vm.isUserLoggedIn()" class="modal fade" ng-controller="registrationController as rc" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -65,8 +65,9 @@
                 </div>
             </div>
         </div>
-        <div ng-if="vm.isUserLoggedIn()" class="form-inline my-2 my-lg-0">
-            <span>Привет, {{vm.user.name}}</span>
+        <div ng-if="vm.isUserLoggedIn()" class="form-inline my-2 my-lg-2">
+            <span class="mr-2">Привет, {{vm.user.name}}</span>
+            <button type="button" ng-click="vm.logout()" class="btn btn-danger">Выйти</button>
         </div>
     </div>
 </nav>

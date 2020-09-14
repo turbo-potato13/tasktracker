@@ -54,9 +54,9 @@ public class ProjectController {
         projectService.deleteById(id, principal.getName());
     }
 
-    @PutMapping("/{id}/{login}")
-    public User addMemberToProject(@PathVariable Long id, @PathVariable String login) {
-        return projectService.addMember(id, login);
+    @PutMapping("/{id}/{email}")
+    public User addMemberToProject(@PathVariable Long id, @PathVariable String email) {
+        return projectService.addMember(id, email);
     }
 
     @DeleteMapping("/{id}/{login}")

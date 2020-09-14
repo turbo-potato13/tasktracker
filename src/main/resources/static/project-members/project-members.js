@@ -3,7 +3,7 @@ angular.module('app').controller('projectsMembersController', function ($scope, 
     const id = $routeParams["id"];
 
     $scope.project = {};
-    $scope.userLogin = "";
+    $scope.email = "";
 
     function _refreshProjectData() {
         $http({
@@ -27,7 +27,7 @@ angular.module('app').controller('projectsMembersController', function ($scope, 
     $scope.submitAddMember = function () {
         $http({
             method: 'PUT',
-            url: contextPath + '/api/v1/projects/' + id + "/" + $scope.userLogin
+            url: contextPath + '/api/v1/projects/' + id + "/" + $scope.email
         }).then(_success, _error);
     };
 
@@ -45,7 +45,7 @@ angular.module('app').controller('projectsMembersController', function ($scope, 
     }
 
     function _clearFormData() {
-        $scope.userLogin = "";
+        $scope.email = "";
     };
 
     _refreshProjectData();

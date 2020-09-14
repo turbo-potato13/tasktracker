@@ -64,9 +64,9 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public User addMember(Long id, String login) {
-        User user = userRepository.findByName(login)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("User with email %s not found", login)));
+    public User addMember(Long id, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User with email %s not found", email)));
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Project with id %d not found", id)));
         if (project.getMembers().contains(user)) {

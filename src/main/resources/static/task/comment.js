@@ -19,6 +19,7 @@ angular.module('app').controller('commentController', function ($scope, $http, $
             }
         }).then(function (response) {
             $scope.CommentList.push(response.data);
+            $scope.newComment.content = null;
         });
     };
     fillTable();
