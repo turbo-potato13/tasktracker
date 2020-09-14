@@ -29,10 +29,10 @@
             <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/')}">
                 <a class="nav-link " href="#!/">Главная</a>
             </li>
-            <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/projects')}">
+            <li class="nav-item shadow-sm  rounded" ng-if="vm.isUserLoggedIn()"ng-class="{ active: isActive('/projects')}">
                 <a class="nav-link " href="#!/projects">Проекты</a>
             </li>
-            <li class="nav-item shadow-sm  rounded" ng-class="{ active: isActive('/task')}">
+            <li class="nav-item shadow-sm  rounded" ng-if="vm.isUserLoggedIn()" ng-class="{ active: isActive('/task')}">
                 <a class="nav-link " href="#!/task">Задачи</a>
             </li>
         </ul>
