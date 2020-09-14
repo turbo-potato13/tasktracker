@@ -25,8 +25,10 @@ public class CommentService {
     }
 
     public List<CommentDTO> findAllById(Long id) {
-        return commentRepository.findAll().stream()
-                .map(comment -> commentMapper.map(comment, id))
+        return commentRepository.findAll()
+                .stream()
+                .filter(comment -> comment.getTask().getId().equals(id))
+                .map(commentMapper::map)
                 .collect(Collectors.toList());
     }
 

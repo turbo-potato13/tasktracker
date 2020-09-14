@@ -30,14 +30,6 @@ public class Task {
     @Setter
     private String description;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User owner;
-
-//    @OneToMany
-//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-//    private List<User> performers;
-
     @JsonIgnore
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -57,7 +49,6 @@ public class Task {
 
     @Setter
     private LocalDateTime periodOfExecution;
-
 
     @Setter
     @OneToMany(mappedBy = "task",

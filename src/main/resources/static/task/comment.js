@@ -3,7 +3,7 @@ angular.module('app').controller('commentController', function ($scope, $http, $
     $scope.id = $routeParams["taskId"]
 
     fillTable = function () {
-        $http.get(contextPath + '/api/v1/comment/' + id)
+        $http.get(contextPath + '/api/v1/comment/' + $scope.id)
             .then(function (response) {
                 $scope.CommentList = response.data;
             });
