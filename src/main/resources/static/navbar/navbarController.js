@@ -1,7 +1,7 @@
-angular.module('app').controller('navbarController', function ($scope, $http, $location, $localStorage) {
+angular.module('app').controller('navbarController', function ($scope, $route, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8190/tasktracker';
     vm = this;
-    vm.user= {};
+    vm.user = {};
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
@@ -26,9 +26,16 @@ angular.module('app').controller('navbarController', function ($scope, $http, $l
                     data.password = null;
                     vm.user.name = $localStorage.currentUser.name;
                     console.log($localStorage.currentUser);
+                    $route.reload();
                 }
             }, function errorCallback(response) {
                 window.alert(response.data.message);
             });
     };
+    vm.logout = function () {
+        $localStorage.currentUser = null;
+        $http.defaults.headers.common.Authorization = null;
+        $route.reload();
+
+    }
 })
